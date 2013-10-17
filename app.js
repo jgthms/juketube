@@ -34,17 +34,16 @@ app.service('VideosService', ['$window', '$rootScope', '$log', function ($window
   var results = [];
   var upcoming = [
     {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
-    {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'},
-    {id: 'FgAJWQCC7L0', title: 'Stardust Music Sounds Better With You (High Quality)'},
-    {id: '4BJDNw7o6so', title: 'Phoenix - Lisztomania Official Video (Best Quality + Lyrics)'},
+    {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
     {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
+    {id: 'FgAJWQCC7L0', title: 'Stardust Music Sounds Better With You (High Quality)'},
+    {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
     {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
     {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
-    {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
-    {id: 'AfD70jmRQlk', title: 'Kavinsky - Odd Look'}
+    {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
   ];
   var history = [
-    {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'}
+    {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
   ];
 
   $window.onYouTubeIframeAPIReady = function () {
@@ -107,7 +106,7 @@ app.service('VideosService', ['$window', '$rootScope', '$log', function ($window
   };
 
   this.launchPlayer = function (id, title) {
-    youtube.player.cueVideoById(id);
+    youtube.player.loadVideoById(id);
     youtube.videoId = id;
     youtube.videoTitle = title;
     return youtube;
