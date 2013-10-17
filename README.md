@@ -39,9 +39,9 @@ JukeTube is an attempt to simplify this scenario.
 
 ## Requirements
 
-You only need a valid YouTube Data API v3 key: [https://developers.google.com/youtube/v3/](https://developers.google.com/youtube/v3/) and paste it in **app.js**.
+You only need a valid [YouTube Data API v3 key](https://developers.google.com/youtube/v3/) to copy-paste in **app.js**.
 
-The Gotham font is used on the demo site but is not provided. Try [Google Fonts](http://www.google.com/fonts) for alternatives.
+The Gotham font is used on the demo site but is not provided. Try [Google Fonts](http://www.google.com/fonts) for some alternatives.
 
 ## Possible enhancements
 
