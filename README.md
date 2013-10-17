@@ -3,6 +3,8 @@ JukeTube
 
 A YouTube powered jukebox built with AngularJS.
 
+[![JukeTube screenshot](https://raw.github.com/jgthms/juketube/master/juketube.png)](http://jt.ms/juketube)
+
 ## Demo
 
 [http://jt.ms/juketube](http://jt.ms/juketube)
