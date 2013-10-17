@@ -1,0 +1,89 @@
+@font-face {
+  font-family: 'Gotham Book';
+  src: url('fonts/gotham-book-webfont.eot');
+  src: url('fonts/gotham-book-webfont.eot?#iefix') format('embedded-opentype'),
+       url('fonts/gotham-book-webfont.woff') format('woff'),
+       url('fonts/gotham-book-webfont.ttf') format('truetype'),
+       url('fonts/gotham-book-webfont.svg#gotham_bookregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'Gotham Medium';
+  src: url('fonts/gotham-medium-webfont.eot');
+  src: url('fonts/gotham-medium-webfont.eot?#iefix') format('embedded-opentype'),
+       url('fonts/gotham-medium-webfont.woff') format('woff'),
+       url('fonts/gotham-medium-webfont.ttf') format('truetype'),
+       url('fonts/gotham-medium-webfont.svg#gotham_mediumregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td{ font-style: normal; font-weight: normal; margin: 0; padding: 0;}
+table{ border-collapse: collapse; border-spacing: 0;}
+fieldset, img{ border: 0;}
+address, caption, cite, code, dfn, var{ font-style: normal; font-weight: normal;}
+ol, ul{ list-style: none;}
+caption, th{ text-align: left;}
+h1, h2, h3, h4, h5, h6{ font-size: 100%; font-weight: normal;}
+q: before, q: after{ content: '';}
+abbr, acronym{ border: 0;}
+
+html{ background: #eee url(shattered.png) repeat top center;}
+body{ margin: 0 auto 100px; position: relative; width: 1280px;}
+a{ cursor: pointer;}
+
+body, input{ font: 20px/1 'Gotham Book', Arial, sans-serif;}
+h1 strong, #playlist, .video-title{ font-family: 'Gotham Medium', Arial, sans-serif;}
+
+header{ background: #df1f1f; color: white; height: 40px; padding: 20px 0;}
+h1{ float: left; line-height: 40px; text-align: center; width: 160px;}
+#search{ float: left; height: 40px; position: relative; width: 880px;}
+#query{ background: #ac0809; border: none; border-radius: 20px; color: white; float: left; height: 30px; line-height: 30px; padding: 5px 20px; width: 840px;}
+#query:focus{ outline: none;}
+#submit{ position: absolute; right: 10px; top: 5px;}
+nav{ float: right; line-height: 40px; text-align: center; width: 240px;}
+#play, #pause{ cursor: pointer;}
+#pause{ display: none;}
+
+#results{ background: #f2f5fd; background: #f5f5f5; height: 944px; overflow-x: hidden; width: 640px;}
+.video{ cursor: pointer; min-height: 90px; padding: 10px; padding-left: 140px; position: relative;}
+.video:nth-child(2n-1){ background: white;}
+.video-image{ float: left; left: 10px; position: absolute; top: 10px;}
+.video-title{ padding-top: 5px;}
+.video-author{ color: #df1f1f; font-size: 14px; padding: 5px 0;}
+.video-description{ color: #727785; font-size: 12px; line-height: 1.5;}
+.video:hover{ background: #22242a; color: white;}
+
+#player, #playlist{ background: white; height: 480px; overflow: hidden; position: absolute; right: 0; top: 80px; width: 640px;}
+
+#player{ background: black;}
+
+#playlist{ background: #22242a; color: #727785; font-size: 16px; height: 464px; overflow-x: hidden; top: 560px; width: 640px;}
+#current{ color: white; font-size: 20px; padding: 20px;}
+#playlist ol, #playlist li{ cursor: pointer;}
+#playlist ol{ border-bottom: 1px solid #33363f; height: 340px; overflow-x: hidden;}
+#playlist li{ border-top: 1px solid #33363f; cursor: pointer;}
+#history li{ color: #33522d;}
+.item-title{ margin-right: 80px; padding: 10px 20px;}
+.item-title:hover{ background: #1171A2; color: white;}
+.item-delete{ color: #ac0809; float: right; text-align: center; padding: 10px 0; width: 80px;}
+.item-delete:hover{ background: #ac0809; color: white;}
+#history .item-title:hover{ background: #33522d; color: white;}
+#tabs, #tabs a{ background: #333; height: 64px; left: 0; line-height: 64px; position: absolute; text-align: center; width: 100%;}
+#tabs{ bottom: 0;}
+#tabs a{ color: #666; width: 50%;}
+#tabs a:last-child{ left: 50%;}
+#tabs .on{ background: #22242a; color: white;}
+
+footer{ color: #888; font-size: 16px; padding: 20px 0; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);}
+footer em{ float: right; font-style: normal;}
+footer a{ color: #666;}
+footer a:hover{ color: #444;}
+
+::-webkit-input-placeholder{ color: #df1f1f;}
+:-moz-placeholder{ color: #df1f1f;}
+::-moz-placeholder{ color: #df1f1f;}
+:-ms-input-placeholder{ color: #df1f1f;}
