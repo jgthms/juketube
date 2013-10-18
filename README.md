@@ -7,7 +7,7 @@ A YouTube powered jukebox built with AngularJS.
 
 ## Demo
 
-[http://jt.ms/juketube](http://jt.ms/juketube)
+http://jt.ms/juketube
 
 ## Purpose
 
@@ -17,8 +17,8 @@ When I attend parties, YouTube is often used as the sole music provider. People 
 * browse to YouTube
 * search for a video
 * open and instantly pause it (to preload it)
-* wait for the previous video to stop
-* launch their video
+* wait for the current video to stop
+* launch the new video
 
 Several problems arise from this process:
 
@@ -39,14 +39,14 @@ JukeTube is an attempt to simplify this scenario.
 
 ## Requirements
 
-You only need a valid [YouTube Data API v3 key](https://developers.google.com/youtube/v3/) to copy-paste in **app.js**.
+You only need a valid [YouTube Data API v3 key](https://developers.google.com/youtube/v3/) to copy-paste in **app.js**. (The current one only works on my domain).
 
 The Gotham font is used on the demo site but is not provided. Try [Google Fonts](http://www.google.com/fonts) for some alternatives.
 
 ## Possible enhancements
 
-* Play/Pause/Stop controls.
-* Use the YouTube API to retrieve the titles using the ID. Right now, the preloaded video titles are hard-coded.
-* Save the current playlist in LocalStorage or a cookie.
-* Drag controls to reorder the playlist items.
-* Search results pagination
+* Play/Pause/Next/Previous controls (currently, only the state is shown).
+* Use the YouTube API to retrieve the pre-populated video titles using the ID. Right now, the titles are hard-coded.
+* Save the current playlist in LocalStorage or a cookie and restore it on the next visit (and add a `Clear playlist` button).
+* Add drag controls to reorder the playlist items.
+* Add search results pagination (the YouTube API provides a `pageToken` parameter).
