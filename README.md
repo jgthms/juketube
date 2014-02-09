@@ -3,11 +3,11 @@ JukeTube
 
 A YouTube powered jukebox built with AngularJS.
 
-[![JukeTube screenshot](https://raw.github.com/jgthms/juketube/master/juketube.png)](http://jt.ms/juketube)
+[![JukeTube screenshot](https://raw.github.com/jgthms/juketube/master/juketube.png)](http://jgthms.com/juketube/)
 
 ## Demo
 
-http://jt.ms/juketube
+[jgthms.com/juketube/](http://jgthms.com/juketube/)
 
 ## Purpose
 
@@ -41,12 +41,11 @@ JukeTube is an attempt to simplify this scenario.
 
 You only need a valid [YouTube Data API v3 key](https://developers.google.com/youtube/v3/) to copy-paste in **app.js**. (The current one only works on my domain).
 
-The Gotham font is used on the demo site but is not provided. Try [Google Fonts](http://www.google.com/fonts) for some alternatives.
-
 ## Possible enhancements
 
 * Play/Pause/Next/Previous controls (currently, only the state is shown).
 * Use the YouTube API to retrieve the pre-populated video titles using the ID. Right now, the titles are hard-coded.
-* Save the current playlist in LocalStorage or a cookie and restore it on the next visit (and add a `Clear playlist` button).
+* <del>Save the current playlist in LocalStorage or a cookie and restore it on the next visit</del> Done by [treeskelt](https://github.com/treeskelt)
+* Add a `Clear playlist` button.
 * Add drag controls to reorder the playlist items.
 * Add search results pagination (the YouTube API provides a `pageToken` parameter).
