@@ -37,13 +37,22 @@ app.service('VideosService', ['$window', '$rootScope', '$log', 'localStorageServ
   var history = localStorageService.get('history');
 
   if (!upcoming) {
-      console.log(upcoming);
-      localStorageService.add('upcoming', []);
+      // $log.info(upcoming);
+      localStorageService.add('upcoming', [
+        {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
+        {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
+        {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
+        {id: 'FgAJWQCC7L0', title: 'Stardust Music Sounds Better With You (High Quality)'},
+        {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
+        {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
+        {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
+        {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
+      ]);
       upcoming = localStorageService.get('upcoming');
   }
 
   if (!history) {
-      console.log(history);
+      // $log.info(history);
       localStorageService.add('history', [
           {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
       ]);
@@ -222,8 +231,8 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     $scope.search = function () {
       $http.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
-          //key: 'AIzaSyD2K6OooNWMPgEWlkAkgAIRctksFyKk1vY',
-          key: 'AIzaSyBvcpEOTJSKE9lIF8QPOjsz9FKIK-Z8JrE',
+          key: 'AIzaSyD2K6OooNWMPgEWlkAkgAIRctksFyKk1vY', // jgthms
+          // key: 'AIzaSyBvcpEOTJSKE9lIF8QPOjsz9FKIK-Z8JrE',
           type: 'video',
           maxResults: '8',
           part: 'id,snippet',
