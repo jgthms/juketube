@@ -1,4 +1,4 @@
-var app = angular.module('JukeTubeApp', []);
+var app = angular.module('JukeTubeApp', ['LocalStorageModule']);
 
 // Run
 
@@ -17,7 +17,7 @@ app.config( function ($httpProvider) {
 
 // Service
 
-app.service('VideosService', ['$window', '$rootScope', '$log', function ($window, $rootScope, $log) {
+app.service('VideosService', ['$window', '$rootScope', '$log', 'localStorageService', function ($window, $rootScope, $log, localStorageService) {
 
   var service = this;
 
@@ -31,20 +31,24 @@ app.service('VideosService', ['$window', '$rootScope', '$log', function ($window
     playerWidth: '640',
     state: 'stopped'
   };
+
   var results = [];
-  var upcoming = [
-    {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
-    {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
-    {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
-    {id: 'FgAJWQCC7L0', title: 'Stardust Music Sounds Better With You (High Quality)'},
-    {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
-    {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
-    {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
-    {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
-  ];
-  var history = [
-    {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
-  ];
+  var upcoming = localStorageService.get('upcoming');
+  var history = localStorageService.get('history');
+
+  if (!upcoming) {
+      console.log(upcoming);
+      localStorageService.add('upcoming', []);
+      upcoming = localStorageService.get('upcoming');
+  }
+
+  if (!history) {
+      console.log(history);
+      localStorageService.add('history', [
+          {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
+      ]);
+      history = localStorageService.get('history');
+  }
 
   $window.onYouTubeIframeAPIReady = function () {
     $log.info('Youtube API is ready');
@@ -127,28 +131,36 @@ app.service('VideosService', ['$window', '$rootScope', '$log', function ($window
   }
 
   this.queueVideo = function (id, title) {
-    upcoming.push({
-      id: id,
-      title: title
+    var saved = localStorageService.get('upcoming');
+    saved.push({
+        id: id,
+        title: title
     });
+    localStorageService.add('upcoming', saved);
+    upcoming = localStorageService.get('upcoming');
     return upcoming;
   };
 
   this.archiveVideo = function (id, title) {
-    history.unshift({
+    var saved = localStorageService.get('history');
+    saved.unshift({
       id: id,
       title: title
     });
+    localStorageService.add('history', saved);
+    history = localStorageService.get('history');
     return history;
   };
 
   this.deleteVideo = function (list, id) {
-    for (var i = list.length - 1; i >= 0; i--) {
-      if (list[i].id === id) {
-        list.splice(i, 1);
+    var videos = localStorageService.get(list);
+    for (var i = videos.length - 1; i >= 0; i--) {
+      if (videos[i].id === id) {
+        videos.splice(i, 1);
         break;
       }
     }
+    localStorageService.add(list, videos);
   };
 
   this.getYoutube = function () {
@@ -160,10 +172,12 @@ app.service('VideosService', ['$window', '$rootScope', '$log', function ($window
   };
 
   this.getUpcoming = function () {
+    upcoming = localStorageService.get('upcoming');
     return upcoming;
   };
 
   this.getHistory = function () {
+    history = localStorageService.get('history');
     return history;
   };
 
@@ -186,24 +200,30 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     $scope.launch = function (id, title) {
       VideosService.launchPlayer(id, title);
       VideosService.archiveVideo(id, title);
-      VideosService.deleteVideo($scope.upcoming, id);
+      VideosService.deleteVideo('upcoming', id);
+      $scope.upcoming = VideosService.getUpcoming();
       $log.info('Launched id:' + id + ' and title:' + title);
     };
 
     $scope.queue = function (id, title) {
       VideosService.queueVideo(id, title);
-      VideosService.deleteVideo($scope.history, id);
+      $scope.upcoming = VideosService.getUpcoming();
+      VideosService.deleteVideo('history', id);
+      $scope.history = VideosService.getHistory();
       $log.info('Queued id:' + id + ' and title:' + title);
     };
 
     $scope.delete = function (list, id) {
       VideosService.deleteVideo(list, id);
+      $scope.upcoming = VideosService.getUpcoming();
+      $scope.history = VideosService.getHistory();
     };
 
     $scope.search = function () {
       $http.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
-          key: 'AIzaSyD2K6OooNWMPgEWlkAkgAIRctksFyKk1vY',
+          //key: 'AIzaSyD2K6OooNWMPgEWlkAkgAIRctksFyKk1vY',
+          key: 'AIzaSyBvcpEOTJSKE9lIF8QPOjsz9FKIK-Z8JrE',
           type: 'video',
           maxResults: '8',
           part: 'id,snippet',
@@ -223,4 +243,5 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     $scope.tabulate = function (state) {
       $scope.playlist = state;
     }
+
 });
