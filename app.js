@@ -81,9 +81,11 @@ app.service('VideosService', ['$window', '$rootScope', '$log', 'localStorageServ
       youtube.state = 'paused';
     } else if (event.data == YT.PlayerState.ENDED) {
       youtube.state = 'ended';
-      service.launchPlayer(upcoming[0].id, upcoming[0].title);
-      service.archiveVideo(upcoming[0].id, upcoming[0].title);
-      service.deleteVideo(upcoming, upcoming[0].id);
+      var saved = localStorageService.get('upcoming');
+      service.launchPlayer(saved[0].id, saved[0].title);
+      service.archiveVideo(saved[0].id, saved[0].title);
+      service.deleteVideo(saved, saved[0].id);
+      localStorageService.add('upcoming', saved);
     }
     $rootScope.$apply();
   }
