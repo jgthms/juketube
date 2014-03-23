@@ -84,8 +84,7 @@ app.service('VideosService', ['$window', '$rootScope', '$log', 'localStorageServ
       var saved = localStorageService.get('upcoming');
       service.launchPlayer(saved[0].id, saved[0].title);
       service.archiveVideo(saved[0].id, saved[0].title);
-      service.deleteVideo(saved, saved[0].id);
-      localStorageService.add('upcoming', saved);
+      service.deleteVideo(upcoming, saved[0].id);
     }
     $rootScope.$apply();
   }
