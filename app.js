@@ -1,4 +1,4 @@
-var app = angular.module('JukeTubeApp', ['LocalStorageModule']);
+var app = angular.module('JukeTubeApp', []);
 
 // Run
 
@@ -17,7 +17,7 @@ app.config( function ($httpProvider) {
 
 // Service
 
-app.service('VideosService', ['$window', '$rootScope', '$log', 'localStorageService', function ($window, $rootScope, $log, localStorageService) {
+app.service('VideosService', ['$window', '$rootScope', '$log', function ($window, $rootScope, $log) {
 
   var service = this;
 
@@ -31,33 +31,19 @@ app.service('VideosService', ['$window', '$rootScope', '$log', 'localStorageServ
     playerWidth: '640',
     state: 'stopped'
   };
-
   var results = [];
-  var upcoming = localStorageService.get('upcoming');
-  var history = localStorageService.get('history');
-
-  if (!upcoming) {
-    // $log.info(upcoming);
-    localStorageService.add('upcoming', [
-      {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
-      {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
-      {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
-      {id: 'FgAJWQCC7L0', title: 'Stardust Music Sounds Better With You (High Quality)'},
-      {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
-      {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
-      {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
-      {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
-    ]);
-    upcoming = localStorageService.get('upcoming');
-  }
-
-  if (!history) {
-    // $log.info(history);
-    localStorageService.add('history', [
-      {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
-    ]);
-    history = localStorageService.get('history');
-  }
+  var upcoming = [
+    {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
+    {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
+    {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
+    {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
+    {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
+    {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
+    {id: 'fTK4XTvZWmk', title: 'Housse De Racket â˜â˜€â˜ Apocalypso'}
+  ];
+  var history = [
+    {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
+  ];
 
   $window.onYouTubeIframeAPIReady = function () {
     $log.info('Youtube API is ready');
@@ -83,7 +69,7 @@ app.service('VideosService', ['$window', '$rootScope', '$log', 'localStorageServ
       youtube.state = 'ended';
       service.launchPlayer(upcoming[0].id, upcoming[0].title);
       service.archiveVideo(upcoming[0].id, upcoming[0].title);
-      service.deleteVideo('upcoming', upcoming[0].id);
+      service.deleteVideo(upcoming, upcoming[0].id);
     }
     $rootScope.$apply();
   }
@@ -140,36 +126,28 @@ app.service('VideosService', ['$window', '$rootScope', '$log', 'localStorageServ
   }
 
   this.queueVideo = function (id, title) {
-    var saved = localStorageService.get('upcoming');
-    saved.push({
-        id: id,
-        title: title
+    upcoming.push({
+      id: id,
+      title: title
     });
-    localStorageService.add('upcoming', saved);
-    upcoming = localStorageService.get('upcoming');
     return upcoming;
   };
 
   this.archiveVideo = function (id, title) {
-    var saved = localStorageService.get('history');
-    saved.unshift({
+    history.unshift({
       id: id,
       title: title
     });
-    localStorageService.add('history', saved);
-    history = localStorageService.get('history');
     return history;
   };
 
   this.deleteVideo = function (list, id) {
-    var videos = localStorageService.get(list);
-    for (var i = videos.length - 1; i >= 0; i--) {
-      if (videos[i].id === id) {
-        videos.splice(i, 1);
+    for (var i = list.length - 1; i >= 0; i--) {
+      if (list[i].id === id) {
+        list.splice(i, 1);
         break;
       }
     }
-    localStorageService.add(list, videos);
   };
 
   this.getYoutube = function () {
@@ -181,12 +159,10 @@ app.service('VideosService', ['$window', '$rootScope', '$log', 'localStorageServ
   };
 
   this.getUpcoming = function () {
-    upcoming = localStorageService.get('upcoming');
     return upcoming;
   };
 
   this.getHistory = function () {
-    history = localStorageService.get('history');
     return history;
   };
 
@@ -209,30 +185,24 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     $scope.launch = function (id, title) {
       VideosService.launchPlayer(id, title);
       VideosService.archiveVideo(id, title);
-      VideosService.deleteVideo('upcoming', id);
-      $scope.upcoming = VideosService.getUpcoming();
-      $scope.history = VideosService.getHistory();
+      VideosService.deleteVideo($scope.upcoming, id);
       $log.info('Launched id:' + id + ' and title:' + title);
     };
 
     $scope.queue = function (id, title) {
       VideosService.queueVideo(id, title);
-      $scope.upcoming = VideosService.getUpcoming();
-      VideosService.deleteVideo('history', id);
-      $scope.history = VideosService.getHistory();
+      VideosService.deleteVideo($scope.history, id);
       $log.info('Queued id:' + id + ' and title:' + title);
     };
 
     $scope.delete = function (list, id) {
       VideosService.deleteVideo(list, id);
-      $scope.upcoming = VideosService.getUpcoming();
-      $scope.history = VideosService.getHistory();
     };
 
     $scope.search = function () {
       $http.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
-          key: 'AIzaSyD2K6OooNWMPgEWlkAkgAIRctksFyKk1vY', // jgthms
+          key: 'AIzaSyD2K6OooNWMPgEWlkAkgAIRctksFyKk1vY',
           type: 'video',
           maxResults: '8',
           part: 'id,snippet',
@@ -252,5 +222,4 @@ app.controller('VideosController', function ($scope, $http, $log, VideosService)
     $scope.tabulate = function (state) {
       $scope.playlist = state;
     }
-
 });

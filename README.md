@@ -45,7 +45,7 @@ You only need a valid [YouTube Data API v3 key](https://developers.google.com/yo
 
 * Play/Pause/Next/Previous controls (currently, only the state is shown).
 * Use the YouTube API to retrieve the pre-populated video titles using the ID. Right now, the titles are hard-coded.
-* <del>Save the current playlist in LocalStorage or a cookie and restore it on the next visit</del> Done by [treeskelt](https://github.com/treeskelt)
+* Save the current playlist in LocalStorage or a cookie and restore it on the next visit
 * Add a `Clear playlist` button.
 * Add drag controls to reorder the playlist items.
 * Add search results pagination (the YouTube API provides a `pageToken` parameter).
